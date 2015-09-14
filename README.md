@@ -3,7 +3,7 @@
 ### Technologies used
 * Node.js
 * ExpressJS
-* ECMAScript6
+* ECMAScript 6
 * Webpack
 * Http-proxy
 * Babel
