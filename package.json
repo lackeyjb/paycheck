@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node server",
-    "post install": "node heroku"
+    "postinstall": "webpack -p --config webpack.production.config.js"
   },
   "author": "Bryan Lackey",
   "license": "ISC",
