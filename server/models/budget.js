@@ -45,3 +45,5 @@ function _getPrice(num) {
 function _setPrice(num) {
   return num*100;
 }
+
+module.exports = mongoose.model('Budget', budgetSchema);
