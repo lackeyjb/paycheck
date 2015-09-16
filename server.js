@@ -17,6 +17,7 @@ var proxy        = httpProxy.createProxyServer({
 
 var appRoutes      = require('./server/routes/appRoutes');
 var configPassport = require('./server/utils/configPassport');
+var ensureAuthenticated = require('./server/utils/authMiddleware');
 
 var app          = express();
 var isProduction = process.env.NODE_ENV === 'production';
@@ -62,6 +63,8 @@ if (!isProduction) {
     });
   });
 
+  app.use(ensureAuthenticated); // must add here because of socketIO calls
+
   proxy.on('error', function(e) {
     console.error(e);
   });
@@ -77,7 +80,7 @@ if (!isProduction) {
   });
 
 } else {
-
+  app.use(ensureAuthenticated);
   app.listen(port, function () {
     console.log('Server running on port ' + port);
   });

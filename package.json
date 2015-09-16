@@ -24,11 +24,14 @@
     "ejs": "^2.3.4",
     "express": "^4.13.3",
     "express-session": "^1.7.6",
+    "history": "^1.9.1",
     "http-proxy": "^1.11.2",
     "mongoose": "^4.1.6",
     "morgan": "^1.6.1",
     "passport": "^0.2.0",
     "passport-local": "^1.0.0",
+    "react": "^0.13.3",
+    "react-router": "1.0.0-rc1",
     "webpack": "^1.12.1"
   },
   "devDependencies": {
