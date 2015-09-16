@@ -2,6 +2,9 @@ var bcrypt   = require('bcrypt-nodejs');
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
+var SALT_FACTOR = 10;
+var noop = function () {};
+
 var userSchema = new Schema({
   email: {
     type: String,
@@ -24,25 +27,31 @@ var userSchema = new Schema({
   }
 });
 
-userSchema.pre('save', function (next) {
+var noop = function() {};
+
+userSchema.pre("save", function(done) {
   var user = this;
-  if (!user.isModified('password')) {
-    return next();
+
+  if (!user.isModified("password")) {
+    return done();
   }
-  bcrypt.hash(user.password, null, null, function (err, hash) {
-    if (err) {
-      return next(err);
-    }
-    user.password = hash;
-    next();
+
+  bcrypt.genSalt(SALT_FACTOR, function(err, salt) {
+    if (err) { return done(err); }
+    bcrypt.hash(user.password, salt, noop, function(err, hashedPassword) {
+      if (err) { return done(err); }
+      user.password = hashedPassword;
+      done();
+    });
   });
 });
 
-userSchema.methods = {
-  comparePassword: function (password) {
-    var user = this;
-    return bcrypt.compareSync(password, user.password);
-  }
+userSchema.methods.checkPassword = function(guess, done) {
+  bcrypt.compare(guess, this.password, function(err, isMatch) {
+    done(err, isMatch);
+  });
 };
 
-module.exports = mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema);
+
+module.exports = User;
