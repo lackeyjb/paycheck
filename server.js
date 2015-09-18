@@ -21,10 +21,7 @@ var ensureAuthenticated = require('./server/utils/authMiddleware');
 
 var app          = express();
 var isProduction = process.env.NODE_ENV === 'production';
-if (isProduction) {
-  mongoose.connect(process.env.MONGOLAB_URI);
-  app.use(express.static(path.resolve(__dirname, 'build')));
-}
+if (isProduction) mongoose.connect(process.env.MONGOLAB_URI);
 if (!isProduction) mongoose.connect('mongodb://localhost/paycheck');
 configPassport();
 var port         = isProduction ? process.env.PORT : 3000;
