@@ -32,11 +32,7 @@ var budgetSchema = new Schema({
     type: Boolean,
     default: false
   },
-  expenses: [expenseSchema],
-  users: [{
-    type: Schema.Types.ObjectId,
-    ref: 'User'
-  }]
+  expenses: [expenseSchema]
 });
 
 function _getPrice(num) {

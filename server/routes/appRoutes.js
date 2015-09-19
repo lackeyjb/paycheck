@@ -1,7 +1,6 @@
-var express            = require('express');
-var passport           = require('passport');
-var mongoose           = require('mongoose');
-var router             = express.Router();
+var express             = require('express');
+var passport            = require('passport');
+var router              = express.Router();
 var ensureAuthenticated = require('../utils/authMiddleware');
 
 var User = require('../models/user');
@@ -14,6 +13,7 @@ router.use(function (req, res, next) {
 });
 
 router.get('/', ensureAuthenticated, function (req, res) {
+  console.log('Req user', req.user);
   res.render('index');
 });
 
@@ -37,7 +37,6 @@ router.get('/signup', function (req, res) {
 });
 
 router.post('/signup', function (req, res, next) {
-  console.log('in signup');
   var username = req.body.username;
   var email    = req.body.email;
   var password = req.body.password;

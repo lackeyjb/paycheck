@@ -16,6 +16,7 @@ var proxy        = httpProxy.createProxyServer({
 });
 
 var appRoutes      = require('./server/routes/appRoutes');
+var apiRoutes      = require('./server/routes/apiRoutes');
 var configPassport = require('./server/utils/configPassport');
 var ensureAuthenticated = require('./server/utils/authMiddleware');
 
@@ -47,6 +48,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(appRoutes);
+app.use('/api', apiRoutes);
 
 if (!isProduction) {
 

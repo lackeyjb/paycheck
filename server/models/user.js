@@ -24,15 +24,19 @@ var userSchema = new Schema({
   budgetAdmin: {
     type: Boolean,
     default: false
-  }
+  },
+  budgets: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Budget'
+  }]
 });
 
 var noop = function() {};
 
-userSchema.pre("save", function(done) {
+userSchema.pre('save', function(done) {
   var user = this;
 
-  if (!user.isModified("password")) {
+  if (!user.isModified('password')) {
     return done();
   }
 
