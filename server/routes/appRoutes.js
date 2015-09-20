@@ -1,7 +1,7 @@
 var express             = require('express');
 var passport            = require('passport');
 var router              = express.Router();
-var ensureAuthenticated = require('../utils/authMiddleware');
+var isAuthenticated = require('../utils/authMiddleware');
 
 var User = require('../models/user');
 
@@ -12,7 +12,7 @@ router.use(function (req, res, next) {
   next();
 });
 
-router.get('/', ensureAuthenticated, function (req, res) {
+router.get('/', isAuthenticated, function (req, res) {
   res.render('index');
 });
 
