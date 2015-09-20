@@ -1,22 +1,6 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-var expenseSchema = new Schema({
-  description: {
-    type: String,
-    defaut: 'no description'
-  },
-  amount: {
-    type: Number,
-    get: _getPrice,
-    set: _setPrice
-  },
-  category: {
-    type: String,
-    default: 'uncategorized'
-  }
-});
-
 var budgetSchema = new Schema({
   recurrence: {
     type: String,
@@ -32,7 +16,10 @@ var budgetSchema = new Schema({
     type: Boolean,
     default: false
   },
-  expenses: [expenseSchema]
+  expenses: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Expense'
+  }]
 });
 
 function _getPrice(num) {
