@@ -17,7 +17,7 @@ module.exports.create = function(req, res) {
 
 module.exports.getAllBudgets = function(req, res) {
   User
-    .findById("55fefdca2728e8943c3006ec")
+    .findById(req.user._id)
     .select('budgets')
     .populate('budgets')
     .exec(function (err, user) {
@@ -62,7 +62,7 @@ module.exports.addExpenses = function(req, res) {
 ///////////////////
 
 function updateUser(req, budget, next) {
-  User.findByIdAndUpdate("55fefdca2728e8943c3006ec",
+  User.findByIdAndUpdate(req.user._id,
     { $push: { budgets: budget._id } },
     { safe: true, upsert: true, new: true },
     function (err, user) {
@@ -84,7 +84,7 @@ function createBudget(req, next) {
 function findLastBudget(req, next) {
   var latestBudget;
   User
-    .findById("55fefdca2728e8943c3006ec")
+    .findById(req.user._id)
     .populate('budgets')
     .exec(function (err, user) {
       if (err) next(err);
