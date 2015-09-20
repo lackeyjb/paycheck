@@ -13,7 +13,6 @@ router.use(function (req, res, next) {
 });
 
 router.get('/', ensureAuthenticated, function (req, res) {
-  console.log('Req user', req.user);
   res.render('index');
 });
 
@@ -53,7 +52,6 @@ router.post('/signup', function (req, res, next) {
       username: username,
       password: password
     });
-    console.log('newUser', newUser);
     newUser.save(next);
   });
 }, passport.authenticate('login', {

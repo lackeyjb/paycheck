@@ -7,6 +7,7 @@ var bodyParser   = require('body-parser');
 var cookieParser = require('cookie-parser');
 var flash        = require('connect-flash');
 var session      = require('express-session');
+var RedisStore   = require('connect-redis')(session);
 var passport     = require('passport');
 var httpProxy    = require('http-proxy');
 var http         = require('http');
@@ -40,6 +41,7 @@ app.use(cookieParser());
 app.use(session({
   secret: 'supersecret',
   resave: true,
+  store: new RedisStore(),
   saveUninitialized: true
 }));
 
