@@ -1,4 +1,5 @@
 # paycheck
+A simple budgeting application
 
 ### Technologies used
 * Node.js
